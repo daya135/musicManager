@@ -15,12 +15,13 @@ public class DaoTest {
 		SqlSession sqlSession = factory.openSession();
 		
 		Song song = new Song();
-		song.setSongid(3);
-		song.setTitle("testDao1");
+//		song.setSongid(3);
+		song.setTitle("testDao2");
 		song.setBand("test1");
 		song.setCreatetime("2018-08-14 00:00:00");
 		SongMapper songDao=sqlSession.getMapper(SongMapper.class);
-		songDao.insert(song);
+		int id = songDao.insert(song);
+		System.out.println("id " + song.getSongid());
 //		List<Song> songs = songDao.selectByTitle("testDao");
 //		for (Song s : songs) {
 //			System.out.println(s.getSongid() + " " + s.getTitle());

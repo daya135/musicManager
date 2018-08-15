@@ -6,12 +6,14 @@ import org.apache.ibatis.annotations.*;
 import org.jzz.musicManger.utils.Song;
 
 public interface SongMapper {
+	/* 使用SelectKey返回插入生成的主键id, 在不同的数据库中有不同的写法，同时要考虑是自增id还是uuid */
 	@Insert("INSERT INTO song "
 			+ "(songid, title, artist, album, band, rate, len, publishyear, downsite,"
 			+ " onsale, langtype, filetype, isdownload, localpath, createtime, updatetime)" 
 			+ " VALUES(#{songid}, #{title}, #{artist}, #{album}, #{band}, #{rate}, #{len},"
 			+ " #{publishyear}, #{downsite}, #{onsale}, #{langtype}, #{filetype}, #{isdownload},"
 			+ " #{localpath}, #{createtime}, #{updatetime})")
+	@SelectKey(statement="select last_insert_rowid()", keyProperty="songid", before=false, resultType=int.class)
     @Options(useGeneratedKeys = true, keyProperty = "songid")
     int insert(Song song);
 	

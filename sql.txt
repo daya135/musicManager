@@ -1,5 +1,7 @@
 version: sqlite3
 dbfile name: song.db 
+默认的主键规则: 当前最大的rowid+1，与Auto AUTOINCREMENT 相比有一点区别，具体参照文档
+（拓展：uuid作为主键与自增主键的区别）
 
 create table song (
 	songid INTEGER PRIMARY KEY,
