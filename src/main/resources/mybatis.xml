@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 大坑！不要指定<properties resource="org/mybatis/example/config.properties">否则还要添加配置文件 -->
+	<properties>
+		<property name="driver" value="org.sqlite.JDBC" />
+		<property name="url" value="jdbc:sqlite:song.db" />
+		<property name="username" value="" />
+		<property name="password" value="" />
+	</properties>
+
+	<settings>
+		<!-- 配置日志输出方式,没试出来怎么用SLF4J,所以pom文件多引入了一个log4j的jar -->
+		<setting name="logImpl"	value="LOG4J" />
+	</settings>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+<!-- 				<property name="username" value="${username}" /> -->
+<!-- 				<property name="password" value="${password}" /> -->
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- 在配置文件中 关联包下的 接口类 -->
+	<mappers>
+		<mapper class="org.jzz.musicManger.dao.SongMapper" />
+	</mappers>
+</configuration>

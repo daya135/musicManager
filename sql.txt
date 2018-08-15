@@ -1,0 +1,21 @@
+version: sqlite3
+dbfile name: song.db 
+
+create table song (
+	songid INTEGER PRIMARY KEY,
+	title TEXT NOT NULL,
+	artist TEXT,
+	album TEXT,
+	band TEXT,
+	rate TEXT,
+	len TEXT,
+	publishyear TEXT,
+	downsite TEXT,
+	onsale TEXT,
+	langtype TEXT,
+	filetype TEXT,
+	isdownload TEXT,
+	localpath  TEXT,
+	createtime TEXT,
+	updatetime TEXT
+)

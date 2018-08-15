@@ -1,0 +1,6 @@
+target/
+src/main/resources/web.properties
+log.log
+error.log
+logs/
+

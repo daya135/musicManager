@@ -1,13 +1,10 @@
 package org.jzz.musicManger.utils;
 
-import java.util.Date;
 
 public class Song {
 	
     private Integer songid;
-
     private String title;
-	
     private String artist;
     private String album;
     private String band;
@@ -20,8 +17,8 @@ public class Song {
     private String filetype;
     private String isdownload;
     private String localpath;
-    private Date createtime;
-    private Date updatetime;
+    private String createtime;
+    private String updatetime;
 
 	public Song() {}
 	
@@ -137,19 +134,19 @@ public class Song {
         this.localpath = localpath == null ? null : localpath.trim();
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
-    public Date getUpdatetime() {
+    public String getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(Date updatetime) {
+    public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
     
