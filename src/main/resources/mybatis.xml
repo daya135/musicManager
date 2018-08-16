@@ -12,8 +12,7 @@
 	</properties>
 
 	<settings>
-		<!-- 配置日志输出方式,没试出来怎么用SLF4J,所以pom文件多引入了一个log4j的jar -->
-		<setting name="logImpl"	value="LOG4J" />
+		<setting name="logImpl"	value="SLF4J" />
 	</settings>
 
 	<environments default="development">

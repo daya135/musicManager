@@ -36,11 +36,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//@Component
 public class XiamiCatch {
 	
-//	@Autowired
-//	private XiamiConfig xiamiConfig;
 	private static Logger logger = LoggerFactory.getLogger(XiamiCatch.class);
 	
 	private static String userName;
@@ -109,36 +106,35 @@ public class XiamiCatch {
             httpPost.setEntity(uefEntity); 
 			httpClient.execute(httpPost);
 			CloseableHttpResponse response = httpClient.execute(httpPost);
-			System.out.println(response.getStatusLine());
-			
 			httpPost = new HttpPost("http://www.xiami.com/space/lib-song/u/" + uid);
 			httpPost.setEntity(uefEntity);
 			response = httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
-			if (!response.getStatusLine().toString().equals("HTTP/1.1 200 OK")) {
-				System.out.println("登录失败! 退出");
+			if (!"HTTP/1.1 200 OK".equals(response.getStatusLine().toString())) {
+				logger.info("登录失败! 退出！" + response.getStatusLine());
 	            try {  
 	                httpClient.close();  
 	            } catch (IOException e) {  
 	                e.printStackTrace();  
 	            }
-	            return songList;
+	            return null;
 			}
+			logger.info("登录成功! " + response.getStatusLine());
 			
 			Pattern numPat = Pattern.compile("<span>\\(第(\\d)*页, 共(\\d)*条\\)</span>");
 			Matcher matcher = numPat.matcher(EntityUtils.toString(entity));
 			if (!matcher.find()) {
-				System.out.println("未找到总条目数,退出!");
+				logger.info("未找到总条目数,退出!");
 	            try {  
 	                httpClient.close();  
 	            } catch (IOException e) {  
 	                e.printStackTrace();  
 	            }
-	            return songList;
+	            return null;
 			}
 			String songNumStr = matcher.group(0);
 			Integer songNum = new Integer(songNumStr.substring(songNumStr.indexOf("共") + 1, songNumStr.indexOf("条")));
-			System.out.println(songNumStr + ":" +songNum );
+			logger.info("总收藏数: " + songNum );
 
 			int maxPages = songNum % numPerPage == 0 ? songNum / numPerPage : songNum / numPerPage + 1;
 			pageNum = pageNum < maxPages ? pageNum : maxPages; //确定实际要处理的页数
@@ -193,7 +189,7 @@ public class XiamiCatch {
 		for (int i = 0; i < futureTasks.size(); i++) {
 			FutureTask<Integer> task = futureTasks.get(i);
 			try{
-				logger.info(String.format("获得线程[%d]返回值:[%d]", i, task.get()));
+				logger.info(String.format(String.format("专辑信息，获得线程[%d]返回值:[%d]", i, task.get())));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
